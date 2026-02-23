@@ -1,5 +1,3 @@
-Allez sur GitHub → server.js → Edit → Supprimez tout et collez :
-
 const fs = require('fs');
 const path = require('path');
 const { default: makeWASocket, DisconnectReason, useMultiFileAuthState, makeCacheableSignalKeyStore, fetchLatestBaileysVersion } = require('@whiskeysockets/baileys');
