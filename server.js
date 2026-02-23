@@ -1,8 +1,3 @@
-D'abord, cliquez sur l'icône **crayon** (Edit) en haut à droite du fichier.
-
-Ensuite, voici le code à copier. Cliquez sur le bouton **Copy** en haut à droite du bloc :
-
-```javascript
 const fs = require('fs');
 const path = require('path');
 const { default: makeWASocket, DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion } = require('@whiskeysockets/baileys');
