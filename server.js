@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+global.crypto = crypto;
 const fs = require('fs');
 const path = require('path');
 const { default: makeWASocket, DisconnectReason, useMultiFileAuthState, makeCacheableSignalKeyStore, fetchLatestBaileysVersion } = require('@whiskeysockets/baileys');
@@ -23,7 +25,7 @@ let serviceState = {
     lastActivity: null,
     messagesSent: 0,
     messagesReceived: 0,
-    version: '2.3-baileys-render'
+    version: '2.4-baileys-render'
 };
 
 let messageHistory = [];
@@ -97,7 +99,7 @@ async function startConnection() {
                 if (sock.user) {
                     serviceState.connectedNumber = sock.user.id.split(':')[0].split('@')[0];
                     serviceState.connectedName = sock.user.name || sock.user.verifiedName || 'User';
-                    console.log(`Logged in as: ${serviceState.connectedName} (${serviceState.connectedNumber})`);
+                    console.log('Logged in as: ' + serviceState.connectedName);
                 }
             }
 
@@ -106,7 +108,7 @@ async function startConnection() {
                     ? lastDisconnect.error.output?.statusCode 
                     : null;
                 
-                console.log(`Connection closed: ${DisconnectReason[statusCode] || statusCode || 'unknown'}`);
+                console.log('Connection closed: ' + (DisconnectReason[statusCode] || statusCode || 'unknown'));
 
                 serviceState.qrCode = null;
                 serviceState.qrCodeDataUrl = null;
@@ -127,7 +129,7 @@ async function startConnection() {
                 if (shouldReconnect && connectionAttempts < 10) {
                     connectionAttempts++;
                     const delay = Math.min(connectionAttempts * 2000, 20000);
-                    console.log(`Reconnecting in ${delay/1000}s (attempt ${connectionAttempts})...`);
+                    console.log('Reconnecting in ' + (delay/1000) + 's...');
                     serviceState.status = 'reconnecting';
                     setTimeout(startConnection, delay);
                 } else if (connectionAttempts >= 10) {
@@ -168,7 +170,6 @@ async function startConnection() {
     }
 }
 
-// API Routes
 app.get('/status', (req, res) => res.json(serviceState));
 
 app.get('/qr', (req, res) => {
@@ -248,7 +249,7 @@ app.get('/health', (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-    console.log(`SAN-IA WhatsApp v2.3 on port ${PORT}`);
+    console.log('SAN-IA WhatsApp v2.4 on port ' + PORT);
     startConnection();
 });
 
