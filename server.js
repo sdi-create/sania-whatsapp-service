@@ -244,4 +244,4 @@ app.listen(PORT, '0.0.0.0', () => {
     connectToWhatsApp();
 });
 
-prcess.on('SIGTERM', () => { if (sock) sock.end(); process.exit(0); });
+process.on('SIGTERM', () => { if (sock) sock.end(); process.exit(0); });
